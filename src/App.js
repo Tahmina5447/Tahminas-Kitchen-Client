@@ -6,6 +6,7 @@ function App() {
     <div className="App">
       <button className='btn'>hello</button>
       <h1>hello</h1>
+     {/* why  */}
     </div>
   );
 }
