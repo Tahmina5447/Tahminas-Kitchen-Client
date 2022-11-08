@@ -23,7 +23,20 @@ const Navbar = () => {
                     <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                         <li><Link to='/'>Home</Link></li>
                         <li><Link to='/items'>Items</Link></li>
-
+                        <li><Link to='/blog'>Blog</Link></li>
+                        {
+                            user?.email ?
+                            <>
+                                <li onClick={handleLogOut}><Link>Logout</Link></li>
+                                <li><Link to='/myReviews'>My Reviews</Link></li>
+                                <li><Link to='/addItems'>Add Items</Link></li>
+                            </>
+                            :
+                            <>
+                                <li><Link to='/login'>Login</Link></li>
+                                <li><Link to='/signup'>Sign Up</Link></li>
+                            </>
+                        }
 
                     </ul>
                 </div>
@@ -35,12 +48,24 @@ const Navbar = () => {
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0 text-teal-400 font-bold">
-                    <li><Link to='/'>Home</Link></li>
-                    <li><Link to='/items'>Items</Link></li>
-                    <li><Link to='/blog'>Blog</Link></li>
-                    <li><Link to='/login'>Login</Link></li>
-                    <li onClick={handleLogOut}><Link>Log Out</Link></li>
-                    <li><Link to='/signup'>Sign Up</Link></li>
+                <li><Link to='/'>Home</Link></li>
+                        <li><Link to='/items'>Items</Link></li>
+                        <li><Link to='/blog'>Blog</Link></li>
+                        {
+                            user?.email ?
+                            <>
+                                <li onClick={handleLogOut}><Link>Logout</Link></li>
+                                <li><Link to='/myReviews'>My Reviews</Link></li>
+                                <li><Link to='/addItems'>Add Items</Link></li>
+                            </>
+                            :
+                            <>
+                                <li><Link to='/login'>Login</Link></li>
+                                <li><Link to='/signup'>Sign Up</Link></li>
+                            </>
+                        }
+                    
+                    
 
 
 

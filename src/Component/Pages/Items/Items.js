@@ -24,6 +24,7 @@ const Items = () => {
                             <div className="card-body">
                                 <h2 className="font-bold text-xl">{item.name}</h2>
                                 <p className='font-bold text-teal-400 '>Price: <span>{item.price}</span></p>
+                                <p>{(item.description).slice(0,100)}...</p>
                                 <div className="mt-8">
                                     <Link className='text-white py-4 rounded-xl px-6 bg-teal-400 font-bold' to={`/details/${item._id}`}>SEE DETAILS</Link>
                                 </div>
