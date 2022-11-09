@@ -7,8 +7,8 @@ import Items from '../Component/Pages/Items/Items';
 import ItemsDetails from '../Component/Pages/ItemsDetails/ItemsDetails';
 import MyReviews from '../Component/Pages/MyReviews/MyReviews';
 import Login from '../Component/Shared/Login/Login';
-import Logout from '../Component/Shared/Logout/Logout';
 import Signup from '../Component/Shared/Signup/Signup';
+import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import Root from '../Root/Root';
 
 const router=createBrowserRouter([
@@ -44,11 +44,11 @@ const router=createBrowserRouter([
             },
             {
                 path:'/myReviews',
-                element:<MyReviews></MyReviews>
+                element:<PrivateRoute><MyReviews></MyReviews></PrivateRoute>
             },
             {
                 path:'/addItems',
-                element:<AddItems></AddItems>
+                element:<PrivateRoute><AddItems></AddItems></PrivateRoute>
             }
         ]
     }

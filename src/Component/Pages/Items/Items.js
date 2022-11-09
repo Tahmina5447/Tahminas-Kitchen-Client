@@ -3,14 +3,26 @@ import { Link } from 'react-router-dom';
 
 const Items = () => {
     const [allItems, steAllItems] = useState([])
+    const [loading,setLoading]=useState(true)
+    
 
     useEffect(() => {
+        
         fetch('http://localhost:5000/allItems')
             .then(res => res.json())
-            .then(data => steAllItems(data))
+            .then(data => {
+                setLoading(false)
+                steAllItems(data)
+            })
 
     }, [])
+
+    if(loading){
+        return <div className="mx-auto my-8 w-20 h-20 border-4 border-dashed rounded-full animate-spin dark:border-teal-400"></div>
+    }
     return (
+        <div>
+            <title>Items-Tahmina's Kitchen</title>
         <div className='my-20'>
             <h1 className='text-center font-bold text-teal-400 text-3xl mb-3 mt-12'>Our Items</h1>
             <div className='w-96 h-0.5 mx-auto mb-12 bg-teal-400'>
@@ -34,6 +46,7 @@ const Items = () => {
                 }
 
             </div>
+        </div>
         </div>
     );
 };

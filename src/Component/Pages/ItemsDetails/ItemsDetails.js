@@ -1,15 +1,23 @@
+import { data } from 'autoprefixer';
 import React, { useContext, useEffect, useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { AuthContext } from '../../../Context/AuthProvider/AuthProvider';
+import Toast from '../../Shared/Toast/Toast';
+
+
 
 const ItemsDetails = () => {
     const { user } = useContext(AuthContext)
     const itemDetails = useLoaderData();
     const [review, setReview] = useState([]);
+    const [rid,setrid]=useState();
     const { img, price, deliveryTime, name, description, _id } = itemDetails;
 
+
+
     // add review
-    const addReview = event => {
+    const addReview =(event) => {
         event.preventDefault();
         const form = event.target;
         const userName = `${form.userName.value}`;
@@ -18,6 +26,7 @@ const ItemsDetails = () => {
         const userImg = form.userImg.value;
         const message = form.message.value;
         form.reset();
+
 
         const review = {
             item: _id,
@@ -28,23 +37,25 @@ const ItemsDetails = () => {
             message,
             userImg,
             rating,
-            itemImg:img
+            itemImg: img
 
         }
 
 
+        if (user) {
+            fetch('http://localhost:5000/review', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(review)
+            })
+                .then(res => res.json())
+                .then(data => console.log(data))
+                .catch(err => console.error(err));
+        }
 
-        fetch('http://localhost:5000/review', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(review)
-        })
-            .then(res => res.json())
-            .then(data => console.log(data))
-            .catch(err => console.error(err));
-
+        tst();
     }
 
 
@@ -54,15 +65,24 @@ const ItemsDetails = () => {
     useEffect(() => {
         fetch(`http://localhost:5000/review?item=${itemDetails._id}`)
             .then(res => res.json())
-            .then(data => {
+            .then(data =>{
+                console.log(data)
                 setReview(data)
-                if(data.deletedCount>0){
-                    setReview(data)
-                }
+              
+               
+                // if(data.===true){
+                //     console.log("hi")
+                //     // const newAdded=review.map(ordr=>console.log(ordr._id))
+                //     // setReview(newAdded);
+                    
+                // }
             })
+               
+                
+           
             .catch(err => console.error(err))
     }, [itemDetails._id])
-
+const tst=()=>toast.success("Review Added",{autoClose:2000})
 
     return (
         <div>
@@ -80,10 +100,12 @@ const ItemsDetails = () => {
                     <div className='mx-auto w-1/2'>
                         <div className=' mt-2 text-teal-400 flex '>
                             <p className='mr-3'>price: {price}</p>
-                            <p>Delivery-Time: {deliveryTime}</p>
+                            <p className='mr-3'>Delivery-Time: {deliveryTime}</p>
+
                         </div>
                     </div>
                     <p className='text-center my-8 px-5'>{description}</p>
+
                 </div>
 
             </div>
@@ -93,7 +115,7 @@ const ItemsDetails = () => {
             <div className='w-52 h-0.5 mx-auto mb-8 bg-teal-400'>
                 <hr />
             </div>
-            <div className=' py-6 flex border-2 bg-teal-400'>
+            <div className=' py-6 flex border-2 bg-teal-400 mb-16'>
 
                 {/* see review section */}
                 <div className='w-2/3'>
@@ -132,22 +154,32 @@ const ItemsDetails = () => {
                     </div>
 
                 </div>
+                {
+                user?.email ?
+                    <>
+                        <form onSubmit={addReview} className='w-1/3 bg-teal-600 rounded mx-6'>
+                            <h1 className='text-white font-bold text-xl mt-4 mb-2 text-center'>Add Your Review</h1>
+                            <div className='w-52 h-0.5 mx-auto mb-2 bg-white'>
+                                <hr />
+                            </div>
+                            <input className='border-2 mt-2 text-center rounded' type="text" name='userName' placeholder='Name' required />
+                            <input className='border-2 mt-2 text-center rounded' type="text" name='rating' placeholder='Add rating' required />
+                            <input className='border-2 mt-2 text-center rounded' type="text" name='userImg' placeholder='Add Image URL' required />
+                            <textarea className='border-2 mt-4 text-center rounded' name='message' placeholder='Add your message' required></textarea>
+                            <div>
+                                <button type='submit' className='bg-teal-400 text-white font-bold py-2 px-3 rounded-xl mt-1 mb-4'>Add</button>
+                            </div>
+                        </form>
+                    </>
+                    :
+                    <>
+                        <h1 className='text-white text-xl font-bold text-center'>Please Log In to add your review. <Link className='btn-link' to='/login'>Login</Link></h1>
+                    </>
+            }
 
-                {/* add review section */}
-                <form onSubmit={addReview} className='w-1/3 bg-teal-600 rounded mx-6'>
-                    <h1 className='text-white font-bold text-xl mt-4 mb-2 text-center'>Add Your Review</h1>
-                    <div className='w-52 h-0.5 mx-auto mb-2 bg-white'>
-                        <hr />
-                    </div>
-                    <input className='border-2 mt-2 text-center rounded' type="text" name='userName' placeholder='Name' required />
-                    <input className='border-2 mt-2 text-center rounded' type="text" name='rating' placeholder='Add rating' required />
-                    <input className='border-2 mt-2 text-center rounded' type="text" name='userImg' placeholder='Add Image URL' required />
-                    <textarea className='border-2 mt-4 text-center rounded' name='message' placeholder='Add your message' required></textarea>
-                    <div>
-                        <button type='submit' className='bg-teal-400 text-white font-bold py-2 px-3 rounded-xl mt-1 mb-4'>Add</button>
-                    </div>
-                </form>
             </div>
+            <Toast></Toast>
+
         </div>
     );
 };

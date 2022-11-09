@@ -29,7 +29,7 @@ const Sliders = () => {
     ]
     return (
         <div className=''>
-            <div className="carousel w-fullrounded-xl">
+            <div className="carousel w-full h-96 rounded-xl">
                 {
                     sliderData.map(data => <SingleSlide key={data.id} data={data}></SingleSlide>)
                 }
