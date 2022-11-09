@@ -8,12 +8,14 @@ import ItemsDetails from '../Component/Pages/ItemsDetails/ItemsDetails';
 import MyReviews from '../Component/Pages/MyReviews/MyReviews';
 import Login from '../Component/Shared/Login/Login';
 import Signup from '../Component/Shared/Signup/Signup';
+import ErrorPage from '../ErrorPage/ErrorPage';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import Root from '../Root/Root';
 
 const router=createBrowserRouter([
     {
         path:'/',
+        errorElement:<ErrorPage></ErrorPage>,
         element:<Root></Root>,
         children:[
             
