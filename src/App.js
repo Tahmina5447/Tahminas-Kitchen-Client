@@ -7,7 +7,7 @@ import 'react-photo-view/dist/react-photo-view.css';
 function App() {
   return (
     <div className="App">
-      <div className='max-w-screen-lg mx-auto'>
+      <div className='max-w-screen-lg mx-auto'> 
       <RouterProvider  router={router}></RouterProvider>
     </div>
     </div>
