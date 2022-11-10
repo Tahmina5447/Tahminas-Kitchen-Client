@@ -11,14 +11,14 @@ const ItemsDetails = () => {
     const { user } = useContext(AuthContext)
     const itemDetails = useLoaderData();
     const [review, setReview] = useState([]);
-    const [rid,setrid]=useState();
+    // const [rid,setrid]=useState();
     const { img, price, deliveryTime, name, description, _id } = itemDetails;
 
 
 
     // add review
     const addReview =(event) => {
-        event.preventDefault();
+        // event.preventDefault();
         const form = event.target;
         const userName = `${form.userName.value}`;
         const email = user?.email;
@@ -54,7 +54,6 @@ const ItemsDetails = () => {
                 .then(data => console.log(data))
                 .catch(err => console.error(err));
         }
-
         tst();
     }
 
@@ -69,13 +68,6 @@ const ItemsDetails = () => {
                 console.log(data)
                 setReview(data)
               
-               
-                // if(data.===true){
-                //     console.log("hi")
-                //     // const newAdded=review.map(ordr=>console.log(ordr._id))
-                //     // setReview(newAdded);
-                    
-                // }
             })
                
                 
@@ -87,12 +79,12 @@ const tst=()=>toast.success("Review Added",{autoClose:2000})
     return (
         <div>
             {/* item details */}
-            <div className='mx-auto flex my-14 shadow-xl'>
+            <div className='mx-auto lg:flex my-14 shadow-xl'>
 
-                <div className='w-1/2'>
+                <div className='lg:w-1/2 sm-full'>
                     <img className='w-full h-96' src={img} alt="" />
                 </div>
-                <div className='w-1/2'>
+                <div className='lg:w-1/2 sm:full'>
                     <h2 className='text-teal-400 font-bold text-3xl mt-4 mb-2 text-center'>{name}</h2>
                     <div className='w-52 h-0.5 mx-auto mb-2 bg-teal-400'>
                         <hr />
@@ -104,7 +96,7 @@ const tst=()=>toast.success("Review Added",{autoClose:2000})
 
                         </div>
                     </div>
-                    <p className='text-center my-8 px-5'>{description}</p>
+                    <p className='text-center my-3 px-5'>{description}</p>
 
                 </div>
 
@@ -115,10 +107,10 @@ const tst=()=>toast.success("Review Added",{autoClose:2000})
             <div className='w-52 h-0.5 mx-auto mb-8 bg-teal-400'>
                 <hr />
             </div>
-            <div className=' py-6 flex border-2 bg-teal-400 mb-16'>
+            <div className=' py-6 lg:flex border-2 bg-teal-400 mb-16'>
 
                 {/* see review section */}
-                <div className='w-2/3'>
+                <div className='lg:w-2/3 sm:w-full'>
                     <h1 className='text-white font-bold text-xl mt-4 mb-2 text-center'>Others Review</h1>
                     <div className='w-52 h-0.5 mx-auto mb-2 bg-white'>
                         <hr />
@@ -126,7 +118,7 @@ const tst=()=>toast.success("Review Added",{autoClose:2000})
 
                     {/* review table */}
 
-                    <div className='ml-6 mt-3'>
+                    <div className='mx-6 mt-3'>
                         {
                             review.map(rev => <div className="overflow-x-auto w-full mt-3">
                                 <table className="table w-full">
@@ -157,7 +149,7 @@ const tst=()=>toast.success("Review Added",{autoClose:2000})
                 {
                 user?.email ?
                     <>
-                        <form onSubmit={addReview} className='w-1/3 bg-teal-600 rounded mx-6'>
+                        <form onSubmit={addReview} className='lg:w-1/3 sm:w-full bg-teal-600 rounded mx-6'>
                             <h1 className='text-white font-bold text-xl mt-4 mb-2 text-center'>Add Your Review</h1>
                             <div className='w-52 h-0.5 mx-auto mb-2 bg-white'>
                                 <hr />

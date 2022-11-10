@@ -7,7 +7,11 @@ const MyReviews = () => {
     const { user,logOut } = useContext(AuthContext)
     const [currentUserReviews, setCurrentUserReviews] = useState([]);
     const [emptymessage, setEmptyMessage] = useState('')
+    const[edited,setEdited]=useState('')
+    const [loading,setLoading]=useState(true)
 
+
+    // get user review
     useEffect(() => {
         fetch(`http://localhost:5000/userReview?email=${user?.email}`, {
             headers: {
@@ -22,6 +26,7 @@ const MyReviews = () => {
                 return res.json()
             })
             .then(data => {
+                setLoading(false)
                 setCurrentUserReviews(data)
                 if (data.length === 0) {
                     setEmptyMessage('You did not add any review')
@@ -30,7 +35,14 @@ const MyReviews = () => {
             .catch(err => console.error(err))
     }, [user?.email,logOut])
 
+    // add loader
+    if(loading){
+        return <div className="mx-auto my-8 w-20 h-20 border-4 border-dashed rounded-full animate-spin dark:border-teal-400"></div>
+    }
 
+
+
+    // add delete system
     const handleDelete = id => {
         fetch(`http://localhost:5000/userReview/${id}`, {
             method: 'DELETE'
@@ -47,13 +59,45 @@ const MyReviews = () => {
             .catch(err => console.error(err))
         tst();
     }
+
+
+    // toast
     const tst = () => toast.success('Successfully Deleted.', { autoClose: 2000 })
 
 
-    const handleEdit=event=>{
+
+    // update review
+    const updatedReview=(event)=>{
         event.preventDefault();
-        const message=event.target.editedReview.value;
-        return message;
+        const editedmessage=event.target.value;
+        setEdited(editedmessage) 
+        
+    }
+
+
+    // edit review
+    const edit=id=>{
+        
+        fetch(`http://localhost:5000/userReview/${id}`, {
+            method: 'PATCH', 
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({status: edited})
+            
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            if(data.modifiedCount > 0) {
+                const remaining = currentUserReviews.filter(rev => rev._id !== id);
+                const approving = currentUserReviews.find(odr => odr._id === id);
+                approving.status =edited
+
+                const newReview = [approving,...remaining];
+                setCurrentUserReviews(newReview);
+            }
+        })
     }
 
 
@@ -70,7 +114,7 @@ const MyReviews = () => {
                 {
                     currentUserReviews.map(rev => <table className="table w-full mt-3">
                         <tbody>
-                            <tr>
+                            <tr className=''>
                                 <td className='w-1/3'>
                                     <div className="flex items-center space-x-3">
                                         <div className="avatar">
@@ -86,17 +130,17 @@ const MyReviews = () => {
                                 </td>
                                 <td className='w-1/3'>
                                     <span className='font-bold'>My-Review:</span> {rev.message}
-                                    <label htmlFor="my-modal" className="btn btn-xs ml-2">Edit</label>
-                                        {/* moda */}
+                                    <label  htmlFor="my-modal" className="btn btn-xs ml-2">Edit</label>
+                                        {/* modal */}
                                     <input type="checkbox" id="my-modal" className="modal-toggle" />
                                     <div className="modal">
-                                        <form onSubmit={handleEdit} className="modal-box">
+                                        <div className="modal-box">
                                             <h3 className="font-bold text-lg">{rev.message}</h3>
-                                            <textarea name='editedReview' className='border-2' placeholder='Edit Here'></textarea>
+                                            <textarea onBlur={updatedReview} className='border-2' placeholder='Edit Here'></textarea>
                                             <div className="modal-action">
-                                                <button type='submit'><label htmlFor="my-modal" className="btn">Done</label></button>
+                                                <button onClick={()=>edit(rev._id)} ><label htmlFor="my-modal" className="btn">Done</label></button>
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </td>
                                 <td className='1/3 text-center'>

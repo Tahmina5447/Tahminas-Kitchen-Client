@@ -13,7 +13,7 @@ const CommingSoon = () => {
             <div className='w-96 h-0.5 mx-auto mb-12 bg-teal-400'>
                 <hr />
             </div>
-            <div className='grid grid-cols-3'>
+            <div className='grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1'>
                 <img className='w-full h-48' src={img1} alt="" />
                 <img className='w-full h-48' src={img6} alt="" />
                 <img className='w-full h-48' src={img5} alt="" />

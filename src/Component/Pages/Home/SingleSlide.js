@@ -17,7 +17,7 @@ const SingleSlide = ({ data }) => {
             <div className='absolute transform -translate-y-1/2 left-1/4 top-1/2 w-1/2'>
                 <h1 className='text-6xl text-white font-bold'>Welcome to My Kitchen</h1>
                 <p className='text-teal-400 text-semibold my-6 text-xl'>Order your favorite food and add a review about these delicious foods.</p>
-                <div>
+                <div className='mb-4'>
                     <Link className=' text-teal-400 py-4 rounded-xl px-6 bg-white font-bold'>Order Now</Link>
                 </div>
             </div>

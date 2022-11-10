@@ -29,7 +29,7 @@ const HomeItems = () => {
                     <hr />
                 </div>
 
-                <div className='grid grid-cols-3 gap-6 '>
+                <div className='grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-6 '>
                     {
                         items.map(item =>
                             <div className="card bg-base-100  shadow-xl border-2">
