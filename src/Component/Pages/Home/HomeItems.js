@@ -9,7 +9,7 @@ const HomeItems = () => {
     const [items, steItems] = useState([])
     const [loading, setLoading] = useState(true)
     useEffect(() => {
-        fetch('http://localhost:5000/items')
+        fetch('https://tahminas-kitchen.vercel.app/items')
             .then(res => res.json())
             .then(data => {
                 setLoading(false)

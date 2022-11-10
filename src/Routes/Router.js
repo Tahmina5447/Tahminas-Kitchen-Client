@@ -29,7 +29,7 @@ const router=createBrowserRouter([
             },
             {
                 path:'/details/:id',
-                loader:({params})=>fetch(`http://localhost:5000/itemDetails/${params.id}`),
+                loader:({params})=>fetch(`https://tahminas-kitchen.vercel.app/itemDetails/${params.id}`),
                 element:<ItemsDetails></ItemsDetails>
             },
             {

@@ -13,7 +13,7 @@ const MyReviews = () => {
 
     // get user review
     useEffect(() => {
-        fetch(`http://localhost:5000/userReview?email=${user?.email}`, {
+        fetch(`https://tahminas-kitchen.vercel.app/userReview?email=${user?.email}`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('token')}`
             }
@@ -29,7 +29,7 @@ const MyReviews = () => {
                 setLoading(false)
                 setCurrentUserReviews(data)
                 if (data.length === 0) {
-                    setEmptyMessage('You did not add any review')
+                    setEmptyMessage('You have no review')
                 }
             })
             .catch(err => console.error(err))
@@ -44,7 +44,7 @@ const MyReviews = () => {
 
     // add delete system
     const handleDelete = id => {
-        fetch(`http://localhost:5000/userReview/${id}`, {
+        fetch(`https://tahminas-kitchen.vercel.app/userReview/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
@@ -78,7 +78,7 @@ const MyReviews = () => {
     // edit review
     const edit=id=>{
         
-        fetch(`http://localhost:5000/userReview/${id}`, {
+        fetch(`https://tahminas-kitchen.vercel.app/userReview/${id}`, {
             method: 'PATCH', 
             headers: {
                 'content-type': 'application/json'

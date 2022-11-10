@@ -8,7 +8,7 @@ const Items = () => {
 
     useEffect(() => {
         
-        fetch('http://localhost:5000/allItems')
+        fetch('https://tahminas-kitchen.vercel.app/allItems')
             .then(res => res.json())
             .then(data => {
                 setLoading(false)

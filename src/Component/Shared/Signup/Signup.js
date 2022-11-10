@@ -30,7 +30,7 @@ const Signup = () => {
                     email:user.email
                 }
                 // For jst token
-                fetch('http://localhost:5000/jwt',{
+                fetch('https://tahminas-kitchen.vercel.app/jwt',{
                     method:'POST',
                     headers:{
                         'content-type':'application/json'
@@ -68,7 +68,7 @@ const Signup = () => {
                 email:user.email
             }
             // For jst token
-            fetch('http://localhost:5000/jwt',{
+            fetch('https://tahminas-kitchen.vercel.app/jwt',{
                 method:'POST',
                 headers:{
                     'content-type':'application/json'

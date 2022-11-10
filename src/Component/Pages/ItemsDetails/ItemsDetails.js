@@ -43,7 +43,7 @@ const ItemsDetails = () => {
 
 
         if (user) {
-            fetch('http://localhost:5000/review', {
+            fetch('https://tahminas-kitchen.vercel.app/review', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -62,7 +62,7 @@ const ItemsDetails = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/review?item=${itemDetails._id}`)
+        fetch(`https://tahminas-kitchen.vercel.app/review?item=${itemDetails._id}`)
             .then(res => res.json())
             .then(data =>{
                 console.log(data)

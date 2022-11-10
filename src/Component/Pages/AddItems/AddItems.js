@@ -23,7 +23,7 @@ const AddItems = () => {
 
 
 
-        fetch('http://localhost:5000/allItems', {
+        fetch('https://tahminas-kitchen.vercel.app/allItems', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
