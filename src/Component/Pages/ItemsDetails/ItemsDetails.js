@@ -18,6 +18,7 @@ const ItemsDetails = () => {
 
     // add review
     const addReview =(event) => {
+        event.preventDefault();
         const form = event.target;
         const userName = `${form.userName.value}`;
         const email = user?.email;
@@ -50,7 +51,7 @@ const ItemsDetails = () => {
                 body: JSON.stringify(review)
             })
                 .then(res => res.json())
-                .then(data => console.log(data))
+                // .then(data => console.log(data))
                 .catch(err => console.error(err));
         }
         tst();
@@ -64,11 +65,8 @@ const ItemsDetails = () => {
         fetch(`https://tahminas-kitchen.vercel.app/review?item=${itemDetails._id}`)
             .then(res => res.json())
             .then(data =>setReview(data))
-               
-                
-           
             .catch(err => console.error(err))
-    }, [itemDetails._id])
+    }, [itemDetails._id,review])
 const tst=()=>toast.success("Review Added",{autoClose:2000})
 
     return (

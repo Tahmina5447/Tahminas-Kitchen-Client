@@ -6,9 +6,9 @@ import Toast from '../../Shared/Toast/Toast';
 const MyReviews = () => {
     const { user, logOut } = useContext(AuthContext)
     const [currentUserReviews, setCurrentUserReviews] = useState([]);
-    const [emptymessage, setEmptyMessage] = useState('')
+    const [emptymessage, setEmptyMessage] = useState(true)
     const [edited, setEdited] = useState()
-    const [loading, setLoading] = useState(true)
+    
 
 
     // get user review
@@ -26,22 +26,19 @@ const MyReviews = () => {
                 return res.json()
             })
             .then(data => {
-                setLoading(false)
+                
                 setCurrentUserReviews(data)
+                setEmptyMessage(false)
 
-                if (data.length === 0) {
-                    setEmptyMessage('You have no review')
-                }
             })
             .catch(err => console.error(err))
     }, [user?.email, logOut])
 
 
-
-    // add loader
-    if (loading) {
-        return <div className="mx-auto my-8 w-20 h-20 border-4 border-dashed rounded-full animate-spin dark:border-teal-400"></div>
+    if (currentUserReviews.length === 0) {
+        return <p className='text-3xl my-10'>No reviews were added</p>
     }
+    
 
 
 
@@ -70,11 +67,12 @@ const MyReviews = () => {
 
 
     // update review
-    const updatedReview = event => {
+    const updatedReview = event =>{
+        event.preventDefault();
         const editedmessage = event.target.text.value;
         console.log(editedmessage)
         fetch(`https://tahminas-kitchen.vercel.app/userReview/${edited}`, {
-            method: 'PATCH',
+            method: 'PUT',
             headers: {
                 'content-type': 'application/json'
             },
@@ -87,7 +85,7 @@ const MyReviews = () => {
                 if (data.modifiedCount > 0) {
                     const remaining = currentUserReviews.filter(rev => rev._id !== edited);
                     const approving = currentUserReviews.find(odr => odr._id === edited);
-                    approving.status = edited
+                    approving.message = editedmessage
 
                     const newReview = [approving, ...remaining];
                     setCurrentUserReviews(newReview);
