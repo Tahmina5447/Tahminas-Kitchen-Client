@@ -18,7 +18,6 @@ const ItemsDetails = () => {
 
     // add review
     const addReview =(event) => {
-        // event.preventDefault();
         const form = event.target;
         const userName = `${form.userName.value}`;
         const email = user?.email;
@@ -64,11 +63,7 @@ const ItemsDetails = () => {
     useEffect(() => {
         fetch(`https://tahminas-kitchen.vercel.app/review?item=${itemDetails._id}`)
             .then(res => res.json())
-            .then(data =>{
-                console.log(data)
-                setReview(data)
-              
-            })
+            .then(data =>setReview(data))
                
                 
            
@@ -78,6 +73,7 @@ const tst=()=>toast.success("Review Added",{autoClose:2000})
 
     return (
         <div>
+            <title>Item Details-Tahmina's Kitchen</title>
             {/* item details */}
             <div className='mx-auto lg:flex my-14 shadow-xl'>
 
