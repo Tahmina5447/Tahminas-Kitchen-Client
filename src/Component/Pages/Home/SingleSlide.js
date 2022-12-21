@@ -1,12 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './Sliders.css'
 
 const SingleSlide = ({ data }) => {
     const { img, id, prev, next } = data;
     return (
         
-        <div id={`slide${id}`} className="carousel-item relative w-full">
+        <div id={`slide${id}`} className="carousel-item relative w-full pb-3">
             <div className='slide-img w-full'>
                 <img src={img} alt="" className=" h-96 w-full" />
             </div>
@@ -17,9 +16,6 @@ const SingleSlide = ({ data }) => {
             <div className='absolute transform -translate-y-1/2 left-1/4 top-1/2 w-1/2'>
                 <h1 className='text-6xl text-white font-bold'>Welcome to My Kitchen</h1>
                 <p className='text-teal-400 text-semibold my-6 text-xl'>Order your favorite food and add a review about these delicious foods.</p>
-                <div className='mb-4'>
-                    <Link className=' text-teal-400 py-4 rounded-xl px-6 bg-white font-bold' to='/items'>Order Now</Link>
-                </div>
             </div>
         </div>
     );
