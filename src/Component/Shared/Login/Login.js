@@ -8,14 +8,13 @@ import Toast from '../Toast/Toast';
 
 const Login = () => {
     const {loginWithProvider,loginUser,loading}=useContext(AuthContext)
-    const location=useLocation();
     const navigate=useNavigate();
-    const from=location.state?.from?.pathname || '/'
+    const location=useLocation();
+    const from=location?.state?.from?.pathname || '/'
+    console.log(from)
     const [error,setError]=useState('')
     const googleProvider = new GoogleAuthProvider();
-    if(loading){
-        return <div className="mx-auto my-8 w-20 h-20 border-4 border-dashed rounded-full animate-spin dark:border-teal-400"></div>
-    }
+   
 
     const handlegoogleLogin = () => {
         loginWithProvider(googleProvider)
@@ -47,7 +46,10 @@ const Login = () => {
 
             })
         })
-            .catch(error => console.error(error));
+        .catch(error=>{
+            console.error(error)
+            setError(error.message)
+        });
             
     }
     
@@ -92,9 +94,13 @@ const Login = () => {
                 setError(error.message)
             });
             form.reset();
+            
         }
 
         const tst =()=>toast.success("Successfully Login",{autoClose:2000});
+        // if(loading){
+        //     return <div className="mx-auto my-8 w-20 h-20 border-4 border-dashed rounded-full animate-spin dark:border-teal-400"></div>
+        // }
    
     return (
         <div>
@@ -103,7 +109,7 @@ const Login = () => {
 
             <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                 <h1 className="text-5xl font-bold text-center mt-4">Login now!</h1>
-                <p className='text-center text-teal-400'>{error}</p>
+                <p className='text-center text-error my-3 '>{error}</p>
                 <form onSubmit={handleLogin} className="card-body">
                     <div className="form-control">
                         <label className="label">

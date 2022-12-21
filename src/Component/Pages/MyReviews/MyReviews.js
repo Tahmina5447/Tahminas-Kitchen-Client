@@ -8,7 +8,7 @@ const MyReviews = () => {
     const [currentUserReviews, setCurrentUserReviews] = useState([]);
     const [emptymessage, setEmptyMessage] = useState(true)
     const [edited, setEdited] = useState()
-    
+
 
 
     // get user review
@@ -26,7 +26,7 @@ const MyReviews = () => {
                 return res.json()
             })
             .then(data => {
-                
+
                 setCurrentUserReviews(data)
                 setEmptyMessage(false)
 
@@ -38,7 +38,7 @@ const MyReviews = () => {
     if (currentUserReviews.length === 0) {
         return <p className='text-3xl my-10'>No reviews were added</p>
     }
-    
+
 
 
 
@@ -67,7 +67,7 @@ const MyReviews = () => {
 
 
     // update review
-    const updatedReview = event =>{
+    const updatedReview = event => {
         event.preventDefault();
         const editedmessage = event.target.text.value;
         console.log(editedmessage)
@@ -112,52 +112,48 @@ const MyReviews = () => {
                 <div className='bg-teal-400 p-12'>
                     <h1 className='text-4xl'>{emptymessage}</h1>
                     {
-                        currentUserReviews.map(rev => <table className="table w-full mt-3">
-                            <tbody>
-                                <tr className=''>
-                                    <td className='w-1/3'>
-                                        <div className="flex items-center space-x-3">
-                                            <div className="avatar">
-                                                <div className="mask mask-squircle w-12 h-12">
-                                                    <img src={rev.itemImg} alt="" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div className="font-bold">{rev.itemName}</div>
-                                                <div className="text-sm text-teal-600">Rating: {rev.rating}</div>
+                        currentUserReviews.map(rev => <div className='bg-white flex my-2 py-2'>
+                            <div className=' w-1/4 '>
+                                <div className='h-14 w-14 avatar'><img className='w-full h-full  rounded-full' src={rev.itemImg} alt="" /></div>
+                                <div className="font-bold">{rev.itemName}</div>
+                                <div className="text-sm text-teal-600">Rating: {rev.rating}</div>
+                            </div>
+                            <div className='w-2/4 '>
+                                <div>
+                                    <span className='font-bold'>My-Review:</span>
+
+                                </div>
+                                <div className='my-2'>
+                                    {rev.message}
+                                </div>
+                                <div>
+                                    <label onClick={() => edit(rev._id)} htmlFor="my-modal" className="btn btn-xs ml-2">Edit</label>
+                                </div>
+                                {/* modal */}
+                                {rev &&
+                                    <>
+                                        <input type="checkbox" id="my-modal" className="modal-toggle" />
+                                        <div className="modal">
+                                            <div className="modal-box">
+                                                <label htmlFor="my-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                                                <form onSubmit={updatedReview} >
+                                                    <textarea name='text' className='border-2 mt-3' placeholder='Edit Here'></textarea>
+                                                    <div className="modal-action">
+                                                        <button ><label htmlFor="my-modal" className="btn">Done</label></button>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
-                                    </td>
-                                    <td className='w-1/3'>
-                                        <span className='font-bold'>My-Review:</span> {rev.message}
-                                        <label onClick={() => edit(rev._id)} htmlFor="my-modal" className="btn btn-xs ml-2">Edit</label>
-                                        {/* modal */}
-                                        {rev &&
-                                            <>
-                                                <input type="checkbox" id="my-modal" className="modal-toggle" />
-                                                <div className="modal">
-                                                    <div className="modal-box">
-                                                        
-                                                        <form onSubmit={updatedReview} >
-                                                            <textarea name='text' className='border-2 mt-3' placeholder='Edit Here'></textarea>
-                                                            <div className="modal-action">
-                                                                <button ><label htmlFor="my-modal" className="btn">Done</label></button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </>
+                                    </>
 
-                                        }
-                                    </td>
-                                    <td className='1/3 text-center'>
-                                        <label onClick={() => { handleDelete(rev._id) }}>
-                                            <button type='submit' className='btn btn-ghost'>Cancel</button>
-                                        </label>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>)
+                                }
+                            </div>
+                            <div className='w-1/4 flex items-center '>
+                                <div onClick={() => { handleDelete(rev._id) }}>
+                                    <button type='submit' className='btn btn-error btn-xs '>Cancel</button>
+                                </div>
+                            </div>
+                        </div>)
                     }
                 </div>
                 <Toast></Toast>

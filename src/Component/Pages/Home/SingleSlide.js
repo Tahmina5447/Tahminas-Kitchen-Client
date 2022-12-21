@@ -18,7 +18,7 @@ const SingleSlide = ({ data }) => {
                 <h1 className='text-6xl text-white font-bold'>Welcome to My Kitchen</h1>
                 <p className='text-teal-400 text-semibold my-6 text-xl'>Order your favorite food and add a review about these delicious foods.</p>
                 <div className='mb-4'>
-                    <Link className=' text-teal-400 py-4 rounded-xl px-6 bg-white font-bold'>Order Now</Link>
+                    <Link className=' text-teal-400 py-4 rounded-xl px-6 bg-white font-bold' to='/items'>Order Now</Link>
                 </div>
             </div>
         </div>

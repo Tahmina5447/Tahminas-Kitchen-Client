@@ -9,13 +9,13 @@ import Toast from '../Toast/Toast';
 const Signup = () => {
     const { loginWithProvider, userCreate,loading } = useContext(AuthContext);
     const [error, setError] = useState('');
-    const location=useLocation();
     const navigate=useNavigate();
-    const from=location.state?.from?.pathname || '/'
+    const location=useLocation();
+    const from=location?.state?.from?.pathname || '/'
     const googleProvider = new GoogleAuthProvider();
-    if(loading){
-        return <div className="mx-auto my-8 w-20 h-20 border-4 border-dashed rounded-full animate-spin dark:border-teal-400"></div>
-    }
+    // if(loading){
+    //     return <div className="mx-auto my-8 w-20 h-20 border-4 border-dashed rounded-full animate-spin dark:border-teal-400"></div>
+    // }
 
     const handlegoogleSignup = () => {
         loginWithProvider(googleProvider)
@@ -46,7 +46,10 @@ const Signup = () => {
     
                 })
             })
-            .catch(error => console.error(error));
+            .catch(error=>{
+                console.error(error)
+                setError(error.message)
+            });
             
     }
 
@@ -98,7 +101,7 @@ const Signup = () => {
         <div className="hero min-h-screen bg-base-200">
             <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                 <h1 className="text-5xl font-bold text-center mt-4">Sign Up  now!</h1>
-                <p className='text-center text-teal-400'>{error}</p>
+                <p className='text-center text-error mt-3'>{error}</p>
                 <form onSubmit={handleSignup} className="card-body">
                     <div className="form-control">
                         <label className="label">

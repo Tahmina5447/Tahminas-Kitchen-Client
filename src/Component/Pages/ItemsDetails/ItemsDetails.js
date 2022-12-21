@@ -17,7 +17,7 @@ const ItemsDetails = () => {
 
 
     // add review
-    const addReview =(event) => {
+    const addReview = (event) => {
         event.preventDefault();
         const form = event.target;
         const userName = `${form.userName.value}`;
@@ -64,10 +64,10 @@ const ItemsDetails = () => {
     useEffect(() => {
         fetch(`https://tahminas-kitchen.vercel.app/review?item=${itemDetails._id}`)
             .then(res => res.json())
-            .then(data =>setReview(data))
+            .then(data => setReview(data))
             .catch(err => console.error(err))
-    }, [itemDetails._id,review])
-const tst=()=>toast.success("Review Added",{autoClose:2000})
+    }, [itemDetails._id, review])
+    const tst = () => toast.success("Review Added", { autoClose: 2000 })
 
     return (
         <div>
@@ -90,7 +90,7 @@ const tst=()=>toast.success("Review Added",{autoClose:2000})
 
                         </div>
                     </div>
-                    <p className='text-center my-3 px-5'>{description}</p>
+                    <p className='text-center my-3 px-5 pb-2'>{description}</p>
 
                 </div>
 
@@ -118,7 +118,7 @@ const tst=()=>toast.success("Review Added",{autoClose:2000})
                                 <table className="table w-full">
                                     <tbody>
                                         <tr>
-                                            <td className='w-1/2'>
+                                            <td className='w-1/5'>
                                                 <div className="flex items-center space-x-3">
                                                     <div className="avatar">
                                                         <div className="mask mask-squircle w-12 h-12">
@@ -131,37 +131,42 @@ const tst=()=>toast.success("Review Added",{autoClose:2000})
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td className='w-1/2'><span className='font-bold'>Feedback:</span> {rev.message}</td>
+                                            <td className='w-4/5 text-center'><span className='font-bold'>Feedback:</span> {rev.message}</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>)
                         }
+                       
                     </div>
 
                 </div>
                 {
-                user?.email ?
-                    <>
-                        <form onSubmit={addReview} className='lg:w-1/3 sm:w-full bg-teal-600 rounded mx-6'>
-                            <h1 className='text-white font-bold text-xl mt-4 mb-2 text-center'>Add Your Review</h1>
-                            <div className='w-52 h-0.5 mx-auto mb-2 bg-white'>
-                                <hr />
+                    user?.email ?
+                        <>
+                            <form onSubmit={addReview} className='lg:w-1/3 sm:w-full bg-teal-600 rounded mx-6'>
+                                <h1 className='text-white font-bold text-xl mt-4 mb-2 text-center'>Add Your Review</h1>
+                                <div className='w-52 h-0.5 mx-auto mb-2 bg-white'>
+                                    <hr />
+                                </div>
+                                <input className='border-2 mt-2 text-center rounded' type="text" name='userName' placeholder='Name' required />
+                                <input className='border-2 mt-2 text-center rounded' type="text" name='rating' placeholder='Add rating' required />
+                                <input className='border-2 mt-2 text-center rounded' type="text" name='userImg' placeholder='Add Image URL' required />
+                                <textarea className='border-2 mt-4 text-center rounded' name='message' placeholder='Add your message' required></textarea>
+                                <div>
+                                    <button type='submit' className='bg-teal-400 text-white font-bold py-2 px-3 rounded-xl mt-1 mb-4'>Add</button>
+                                </div>
+                            </form>
+                        </>
+                        :
+                        <>
+                            <div className='flex items-center pl-6 mt-2'>
+                            <Link className='btn-link ' to='/login'>Log in</Link> <span className=' text-xl text-white ml-2'>to add your review.</span>
                             </div>
-                            <input className='border-2 mt-2 text-center rounded' type="text" name='userName' placeholder='Name' required />
-                            <input className='border-2 mt-2 text-center rounded' type="text" name='rating' placeholder='Add rating' required />
-                            <input className='border-2 mt-2 text-center rounded' type="text" name='userImg' placeholder='Add Image URL' required />
-                            <textarea className='border-2 mt-4 text-center rounded' name='message' placeholder='Add your message' required></textarea>
-                            <div>
-                                <button type='submit' className='bg-teal-400 text-white font-bold py-2 px-3 rounded-xl mt-1 mb-4'>Add</button>
-                            </div>
-                        </form>
-                    </>
-                    :
-                    <>
-                        <h1 className='text-white text-xl font-bold text-center'>Please Log In to add your review. <Link className='btn-link' to='/login'>Login</Link></h1>
-                    </>
-            }
+                           
+                           
+                        </>
+                }
 
             </div>
             <Toast></Toast>
