@@ -141,22 +141,10 @@ const ItemsDetails = () => {
                     </div>
 
                 </div>
-                {
+                {/* {
                     user?.email ?
                         <>
-                            <form onSubmit={addReview} className='lg:w-1/3 sm:w-full bg-teal-600 rounded mx-6'>
-                                <h1 className='text-white font-bold text-xl mt-4 mb-2 text-center'>Add Your Review</h1>
-                                <div className='w-52 h-0.5 mx-auto mb-2 bg-white'>
-                                    <hr />
-                                </div>
-                                <input className='border-2 mt-2 text-center rounded' type="text" name='userName' placeholder='Name' required />
-                                <input className='border-2 mt-2 text-center rounded' type="text" name='rating' placeholder='Add rating' required />
-                                <input className='border-2 mt-2 text-center rounded' type="text" name='userImg' placeholder='Add Image URL' required />
-                                <textarea className='border-2 mt-4 text-center rounded' name='message' placeholder='Add your message' required></textarea>
-                                <div>
-                                    <button type='submit' className='bg-teal-400 text-white font-bold py-2 px-3 rounded-xl mt-1 mb-4'>Add</button>
-                                </div>
-                            </form>
+                            
                         </>
                         :
                         <>
@@ -166,7 +154,20 @@ const ItemsDetails = () => {
                            
                            
                         </>
-                }
+                } */}
+                <form onSubmit={addReview} className='lg:w-1/3 sm:w-full bg-teal-600 rounded mx-6'>
+                                <h1 className='text-white font-bold text-xl mt-4 mb-2 text-center'>Add Your Review</h1>
+                                <div className='w-52 h-0.5 mx-auto mb-2 bg-white'>
+                                    <hr />
+                                </div>
+                                <input className='border-2 mt-2 text-center rounded' type="text" name='userName' placeholder='Your Name' required />
+                                <input className='border-2 mt-2 text-center rounded' type="text" name='rating' placeholder='Add rating' required />
+                                <input className='border-2 mt-2 text-center rounded' type="text" name='userImg' placeholder='Your Image URL' required />
+                                <textarea className='border-2 mt-4 text-center rounded' name='message' placeholder='Add your message' required></textarea>
+                                <div>
+                                    <button type='submit' className='bg-teal-400 text-white font-bold py-2 px-3 rounded-xl mt-1 mb-4'>Add</button>
+                                </div>
+                            </form>
 
             </div>
             <Toast></Toast>

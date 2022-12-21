@@ -30,7 +30,7 @@ const router=createBrowserRouter([
             {
                 path:'/details/:id',
                 loader:({params})=>fetch(`https://tahminas-kitchen.vercel.app/itemDetails/${params.id}`),
-                element:<ItemsDetails></ItemsDetails>
+                element:<PrivateRoute><ItemsDetails></ItemsDetails></PrivateRoute>
             },
             {
                 path:'/blog',
